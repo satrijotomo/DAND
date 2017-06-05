@@ -6,3 +6,6 @@ Getting the first taste of data analytic work by reviewing Bike Ride data
 
 ## Project 1:
 Analyze data to apply the corect stastitical test to examine the difference between two samples.
+
+## Project 2:
+Analyze Titanic survival data to uncover correlation and pattern.
