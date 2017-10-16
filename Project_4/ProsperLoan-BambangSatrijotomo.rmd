@@ -1,0 +1,678 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+Prosper Loan Data
+========================================================
+
+# Univariate Plots Section
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+# Load all of the packages that you end up using in your analysis in this code
+# chunk.
+
+# Notice that the parameter "echo" was set to FALSE for this code chunk. This
+# prevents the code from displaying in the knitted HTML output. You should set
+# echo=FALSE for all code chunks in your file, unless it makes sense for your
+# report to show the code that generated a particular plot.
+
+# The other parameters for "message" and "warning" should also be set to FALSE
+# for other code chunks once you have verified that each plot comes out as you
+# want it to. This will clean up the flow of your report.
+
+library(ggplot2)
+```
+
+```{r echo=FALSE, Load_the_Data}
+# Load the Data
+setwd('/Volumes/USB128GB/1_UDACITY_DATA_ANALYSIS/P4 EDA/PROJECT/DATA')
+ld <- read.csv('prosperLoanData.csv')
+names(ld)
+summary(ld)
+```
+
+>This data set contains 113,937 loans with 81 variables on each loan, including loan amount, borrower rate (or interest rate), current loan status, borrower income, borrower employment status, borrower credit history, and the latest payment information.
+
+
+
+
+
+```{r echo=FALSE,message=FALSE, warning=FALSE,"Univariate_Plots BorrowerRate"}
+ggplot(aes(x=BorrowerRate*100),data=subset(ld,!is.na(BorrowerRate)))+
+  geom_histogram(binwidth = 2,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,46,2),limits = c(0, 46))
+```
+
+>Plotting Borrower Rate histogram reveals that most of Prosper borrowers have  their loans' rate (APR) of around 14%.  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots Term"}
+ggplot(aes(x=Term),data=subset(ld,!is.na(Term)))+
+  geom_bar(binwidth = 12,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,60,12))
+
+```
+
+>Only 3 types of loan terms offered by Prosper: 12, 36 and 60 months. As we can see from the chart above, most of the borrowers select 36 months term. More than 75% borrowers prefer 36 months or 3 years terms, probably because it gives enough length to repay the loan but not too long to accumulate unnecessary interests. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots CreditScoreRangeLower"}
+ggplot(aes(x=CreditScoreRangeLower),
+       data=subset(ld,!is.na(CreditScoreRangeLower)))+
+  geom_histogram(binwidth = 20,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(400,900,20),limits = c(400, 900))
+```
+
+>The plot above illustrates the lower range of borrowers' credit scores. It follows normal curve distribution. Most borrowers' credit scores fall in around 670 and 680. Credit score in this range is considered from Fair to Good.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, "Univariate_Plots EmploymentStatus"}
+ggplot(aes(x=EmploymentStatus),
+       data=subset(ld,ld$EmploymentStatus != ""))+
+  geom_histogram(color='orange', fill = 'blue', stat = "count")
+
+```
+
+
+>It is not surprising that the majority of the borrowers have regular income from employment. However, the data have ambiguity since employed category can be further divided into part-time and full-time, and these two sub-categories also exist as options.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, "Univariate_Plots RevolvingCreditBalance"}
+ggplot(aes(x=RevolvingCreditBalance),
+       data=subset(ld,!is.na(RevolvingCreditBalance)))+
+  geom_histogram(binwidth=2000,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,300000,30000),limits = c(0, 300000)) 
+
+```
+```{r echo=FALSE, message=FALSE, warning=FALSE, "Univariate_Plots RevolvingCreditBalanceLog10"}
+ggplot(aes(x=RevolvingCreditBalance),
+       data=subset(ld,!is.na(RevolvingCreditBalance)))+
+  geom_histogram(binwidth=2000,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,300000,30000),limits = c(0, 300000))+ 
+  scale_y_log10()
+
+```
+
+>The first Revolving Credit Balance plot indicates positive skew distribution. The Mean is higher than the Median as it is "pulled" to the right. Because the plot is a long tailed one, it is transformed to log10 to better understand the distribution of the data. As we can see from the log the count peaks at around 0 (no revolving balance) and gradually decreases as the revolving balance increases. However, there is no significant difference in the distributions shown by log10, thus it is confirmed that the plot has postive skew distribution. 
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots MonthlyLoanPayment"}
+ggplot(aes(x=MonthlyLoanPayment),
+       data=subset(ld,!is.na(MonthlyLoanPayment)))+
+  geom_histogram(binwidth=50,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,1500,200),limits = c(0, 1500))
+
+```
+
+>Similar to Revolving Credit Balance, Monthly Loan Payment plot also follows positive skew distribution with Mean value is higher than the Median. Most borrowers have monthly loan payment around $150.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots DebtToIncomeRatio"}
+ggplot(aes(x=DebtToIncomeRatio),
+       data=subset(ld,!is.na(DebtToIncomeRatio)))+
+  geom_histogram(binwidth=.05,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,1,0.05),limits = c(0, 1))
+
+```
+
+>Debt to Income Ratio plot also has positive skew distribution in which majority of borrowers' ratios are around 0.2.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots CurrentCreditLines"}
+ggplot(aes(x=CurrentCreditLines),
+       data=subset(ld,!is.na(CurrentCreditLines)))+
+  geom_histogram(binwidth=2,color='orange', fill = 'blue')+
+  scale_x_continuous(breaks = seq(0,40,2),limits = c(0, 40))
+
+```
+
+>Again, Current Credit Lines plot also shows positive skew distribution. While there are outliers data such as 59 (Max), most borrowers have around 8 credit lines.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,message=FALSE, warning=FALSE,"Univariate_Plots CreditGrade"}
+ld$ProsperRating..Alpha. <- factor(ld$ProsperRating..Alpha., 
+                                   levels = c("AA","A","B","C","D","E","HR"))
+ggplot(aes(x=ProsperRating..Alpha.),
+       data=subset(ld,ld$ProsperRating..Alpha. != ""))+
+  geom_histogram(color='orange', fill = 'blue', stat = "count")
+
+```
+
+>ProsperRating..Alpha. plot follows normal distribution. The X axis shows the credit grades from AA, which is the highest credit grade and has the lowest probability of default, to HR, which is the lowest credit grade. HR credit grade also means that there is no credit history or history of defaults.
+Most debtors have C grade which right in the middle.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots Occupation"}
+ggplot(aes(x=Occupation),data=subset(ld,ld$Occupation != ""))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_histogram(color='orange', fill = 'blue', stat = "count")
+
+```
+
+>In this plot we are looking at how the borrowers are distributed based on their occupations. Unfortunately, by a huge margin, most of the records have "Other". Prosper needs to improve the data entry to have more specific values. Moreover, the second highest occupation is Professional, which can also be broken down into more specific profession.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Univariate_Plots IncomeRange"}
+ld$IncomeRange <- factor(ld$IncomeRange, 
+                         levels = c("$0","$1-24,999","$25,000-49,999",
+                                    "$50,000-74,999","$75,000-99,999",
+                                    "$100,000+","Not employed",
+                                    "Not displayed"))
+
+ggplot(aes(x=IncomeRange),data=subset(ld,ld$IncomeRange != ""))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_histogram(color='orange', fill = 'blue', stat = "count")
+
+```
+
+>Most of Prosper's debtors are in $25,000-49,999 income range. No one in the data has income greater than $100,000. There are records having "Not displayed". The distribution of income range might change if values of each Not displayed record is known.
+
+
+# Univariate Analysis
+
+### What is the structure of your dataset?
+There are 113,937 records in the dataset with 81 variables. Variables ProsperRating(Alpha) and IncomeRange are ordered factor variables with the following levels. 
+
+Highest to Lowest;
+ProsperRating(Alpha): "AA","A","B","C","D","E","HR"
+IncomeRange: "$100,000+","$75,000-99,999","$50,000-74,999","$25,000-49,999","$1-24,999","$0".
+
+
+### What is/are the main feature(s) of interest in your dataset?
+The main features of interest in this dataset are the BorrowerRate, CreditScoreRangeLower and DebtToIncomeRatio.
+
+### What other features in the dataset do you think will help support your \
+investigation into your feature(s) of interest?
+EmploymentStatus, MonthlyLoanPayment and LoanStatus are the features that will be useful during investigation of the features of the interest.
+
+### Did you create any new variables from existing variables in the dataset?
+I did not create any new vriables from the existing variables in the dataset since the existing ones are already self explanatory. Some of the existing variables even have very high correlation, for example BorrowerRate and BorrowerAPR, thus I only use one variable to represent the f.
+
+### Of the features you investigated, were there any unusual distributions? \
+Did you perform any operations on the data to tidy, adjust, or change the form \
+of the data? If so, why did you do this?
+
+The Revolving Credit Balance plot is a very long tailed one. To see if there is a hidden distribution unseen, the plot is transforemed using log10. However, there is no significant difference in the distributions shown by log10, thus the original distribution which is positive skewed is confirmed.
+
+
+
+# Bivariate Plots Section
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, "Multivariate_Plots"}
+library(ggplot2)
+library(GGally)
+library(scales)
+library(memisc)
+
+#ld2 <- subset(ld, select = -ListingKey)
+#ld2 <- subset(ld2, select = -ListingCreationDate)
+#ld2 <- subset(ld2, select = -ClosedDate)
+#ld2 <- subset(ld2, select = -BorrowerState)
+#ld2 <- subset(ld2, select = -Occupation)
+#ld2 <- subset(ld2, select = -GroupKey)
+#ld2 <- subset(ld2, select = -DateCreditPulled)
+
+#Data <- subset( Data, select = -c(d, b ) )
+
+ld2 <- subset(ld, 
+              select = -c(ListingKey,ListingNumber,ListingCreationDate,
+                          CreditGrade,EstimatedEffectiveYield,
+                          ProsperRating..Alpha.,ClosedDate,BorrowerState,
+                          Occupation,GroupKey,DateCreditPulled,
+                          FirstRecordedCreditLine,LoanKey,
+                          LoanOriginationDate,MemberKey,
+                          LoanOriginationQuarter,GroupKey,
+                          ScorexChangeAtTimeOfListing,LoanNumber,
+                          LP_CustomerPayments,LP_CustomerPrincipalPayments,
+                          LP_InterestandFees,LP_ServiceFees,LP_CollectionFees,
+                          LP_GrossPrincipalLoss,LP_NetPrincipalLoss,
+                          LP_NonPrincipalRecoverypayments,Recommendations,
+                          InvestmentFromFriendsCount,
+                          InvestmentFromFriendsAmount,Investors,EstimatedLoss,
+                          EstimatedReturn,ProsperRating..numeric.,
+                          ProsperScore,IsBorrowerHomeowner,
+                          CurrentlyInGroup,IncomeVerifiable,
+                          TotalProsperLoans,TotalProsperPaymentsBilled,
+                          OnTimeProsperPayments,
+                          ProsperPaymentsLessThanOneMonthLate,
+                          ProsperPaymentsOneMonthPlusLate,
+                          ProsperPrincipalBorrowed,
+                          ProsperPrincipalOutstanding,
+                          TotalTrades,TradesNeverDelinquent..percentage.,
+                          TradesOpenedLast6Months,PublicRecordsLast10Years,
+                          CreditScoreRangeUpper,OpenCreditLines,
+                          TotalCreditLinespast7years,OpenRevolvingAccounts,
+                          InquiriesLast6Months,AvailableBankcardCredit,
+                          LoanFirstDefaultedCycleNumber,
+                          ListingCategory..numeric.,EmploymentStatusDuration,
+                          AmountDelinquent,DelinquenciesLast7Years,
+                          StatedMonthlyIncome,BorrowerAPR,
+                          LenderYield,LoanOriginalAmount,
+                          CurrentCreditLines,
+                          OpenRevolvingMonthlyPayment,
+                          LoanMonthsSinceOrigination,
+                          CurrentDelinquencies,
+                          PublicRecordsLast12Months))
+
+#sample 10,000 properties from the data set
+set.seed(2017209)
+prop_samp <- ld2[sample(1:length(ld$LoanStatus), 10000), ]
+prop_samp$DebtToIncomeRatio[is.na(prop_samp$DebtToIncomeRatio)] <- 0
+prop_samp$IncomeRange[is.na(prop_samp$DebtToIncomeRatio)] <- 0
+#ggpairs(prop_samp, lower = 
+#          list(continuous = wrap("points", shape = I('.'))), 
+#       upper = list(combo = wrap("box", outlier.shape = I('.'),size=9))+
+#          theme(axis.text = element_blank()))
+
+
+ggcorr(prop_samp, hjust = 0.9, size = 2.5,label = TRUE, label_size = 2.5, label_round = 2, label_alpha = TRUE)
+
+
+```
+
+
+
+```{r echo=FALSE, "Bivariate_Plots EmploymentStatus vs BorrowerRate"}
+ggplot(aes(x=EmploymentStatus,y=BorrowerRate), 
+       data=subset(ld,ld$EmploymentStatus != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')+
+  scale_y_continuous(breaks = seq(0,0.4,0.05),limits = c(0, 0.4))
+
+```
+
+>The boxplot above clearly indicates that Not Employed borrowers receive higher loan rate. This is not surprising considering the fact that not employed borrowers have higher risks. On the other hand, full-time and part-time employees have the lowest median loan rate among others.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots CreditScoreRangeLower vs BorrowerRate"}
+ggplot(aes(x=CreditScoreRangeLower,y=BorrowerRate), 
+       data=subset(ld,ld$CreditScoreRangeLower != ""))+ 
+  geom_line(stat = 'summary', fun.y = mean, color='black')+
+  geom_point(alpha = 0.1, size = 0.2, 
+             position = 'jitter',color='orange')+
+  scale_x_continuous(breaks = seq(400,900,50),limits = c(400, 900))+
+  geom_smooth()
+
+cor.test(ld$CreditScoreRangeLower,ld$BorrowerRate, 
+         method = 'pearson')
+```
+
+
+
+
+>As the borrowers' credit scores higher, the loan rates are lower. This is inline with the assumption that people with higher credit score tend to have lower risk in terms of loan default.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots DebtToIncomeRatio vs MonthlyLoanPayment"}
+ggplot(aes(x=DebtToIncomeRatio,y=MonthlyLoanPayment), 
+       data=subset(ld,ld$DebtToIncomeRatio != ""))+ 
+  geom_point(alpha = 0.1, size = 0.2, 
+             position = 'jitter',color='orange')+
+  scale_x_continuous(breaks = seq(0,1,0.1),limits = c(0, 1))+
+  geom_smooth()
+
+```
+
+>In the plot above the correlation between Debt to Income Ratio and Monthly Loan Payment is investigated. The plot is limited to max debt ratio = 1 since data with ratio greater than 1 is considered as outliers. Plot shows that from ratio 0.05 to 0.4, the monthly loan payment varies greatly.From 0.4 onward, the loan payment variations become more stable with slightly inclining trend.
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots BorrowerState vs CreditScoreRangeLower"}
+ggplot(aes(x=BorrowerState,y=CreditScoreRangeLower), 
+       data=subset(ld,ld$BorrowerState != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')+
+  ylim(300,900)
+```
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots BorrowerState vs BorrowerRate"}
+ggplot(aes(x=BorrowerState,y=BorrowerRate), 
+       data=subset(ld,ld$BorrowerState != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')
+```
+
+>Two boxplots above are created to investigate the correlation between Borrower rate, Credit Score and Borrower State. In the second plot, borrowers from Maine enjoy the lowest rate. Interestingly, the first plot shows that borrowers from Mane have one of the lowest credit score medians among other states. On the other hand, borrowers from North Dakota have the lowest credit score median and consequently receive one of the highest borrower rate medians.
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots LoanOriginationQuarter vs BorrowerRate"}
+ld$LoanOriginationQuarter <- 
+  factor(ld$LoanOriginationQuarter, 
+         c("Q1 2006", "Q2 2006", "Q3 2006","Q4 2006", 
+           "Q1 2007", "Q2 2007", "Q3 2007","Q4 2007",
+           "Q1 2008", "Q2 2008", "Q3 2008","Q4 2008",
+           "Q1 2009", "Q2 2009", "Q3 2009","Q4 2009",
+           "Q1 2010", "Q2 2010", "Q3 2010","Q4 2010",
+           "Q1 2011", "Q2 2011", "Q3 2011","Q4 2011",
+           "Q1 2012", "Q2 2012", "Q3 2012","Q4 2012",
+           "Q1 2013", "Q2 2013", "Q3 2013","Q4 2013"))
+ggplot(aes(x=LoanOriginationQuarter,y=BorrowerRate), 
+       data=subset(ld,ld$BorrowerRate != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')
+```
+
+>The above boxplot is used to investigate the correlation between borrower rate and when the loan was originated. Q3 2010 - Q4 2011 is the period when the medians of the borrower rate at the highest level. Since Q3 2012 it continuously decline.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots CreditScoreRangeLower vs MonthlyLoanPayment"}
+ggplot(aes(x=CreditScoreRangeLower,y=MonthlyLoanPayment), 
+       data=subset(ld,!is.na(MonthlyLoanPayment)))+ 
+  geom_line(stat = 'summary', fun.y = mean, color='black')+
+  geom_point(alpha = 0.1, size = 0.2, 
+             position = 'jitter',color='orange')+
+  scale_x_continuous(breaks = seq(400,900,50),limits = c(400, 900))+
+  ylim(0,1500)+
+  geom_smooth()
+```
+
+>Monthly payment values increase as the borrowers credit scores increase gradually. However, at credit score around 825, the monthly payment decreases. One possibility is that the Prosper's customers with credit score of 825 and above tend to have lower loan rate and/or borrow less money, bringing down the monthly payment.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Bivariate_Plots CreditScoreRangeLower vs LoanStatus"}
+
+ld$LoanStatus <- 
+  factor(ld$LoanStatus,c("Current","FinalPaymentInProgress",
+                         "Past Due (1-15 days)","Past Due (16-30 days)",
+                         "Past Due (31-60 days)","Past Due (61-90 days)",
+                         "Past Due (91-120 days)","Defaulted"))
+
+ggplot(aes(x=LoanStatus,y=CreditScoreRangeLower), 
+       data=subset(ld,ld$LoanStatus != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')+
+  ylim(550,750)
+
+```
+
+
+>As previously mentioned, there is assumption that borrowers with lower credit score carry higher risk of loan default. The LoanStatus boxplot above confirms this assumption. While there are no significant diferences between current and past due loans, defaulted loans indicates that they occur more on borrowers with lower range of credit scores.
+
+
+
+# Bivariate Analysis
+
+
+### Talk about some of the relationships you observed in this part of the \
+investigation. How did the feature(s) of interest vary with other features in \
+the dataset?
+
+Borrower rate correlates with employment status and credit score. Borrowers who have full-time and part-time employment typically have the lowest loan rate. On the opposite, Prosper's customers who are not employed receive the highest rate.
+
+The loan rate is negatively correlates with the credit score. The higher a customer's credit score, the lower the rate she or he gets. 
+
+The higher loan rates for the borrowers who have lower credit scores is based on the assumption that the lower credit scores indicate higher risk of the loans being defaulted. As we can see from the last bivariat plot, the median of the defaulted borrowers is significantly lower than other categories. 
+
+
+### Did you observe any interesting relationships between the other features \
+(not the main feature(s) of interest)?
+
+Loans originated from Q3 2010 to Q4 2011 carry highest loan rates in the dataset. However, there is no obvious seasonal pattern, thus we cannot conclude that there is correlation between borrower rate and origination quarter.
+
+
+### What was the strongest relationship you found?
+
+Borrower rate correlates negatively with the credit score range.
+
+
+
+
+# Multivariate Plots Section
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Two_1}
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate, color=LoanStatus), data = ld) + 
+  geom_point(alpha = 0.5, size = 1, position = 'jitter', aes(color= LoanStatus)) +
+  scale_color_brewer(type = 'div',
+    guide = guide_legend(title = 'LoanStatus',
+    override.aes = list(alpha = 1, size = 2))) +  
+  scale_x_continuous(limits = c(200, 900),
+    breaks = seq(200, 900, 100))+
+  scale_y_continuous(limits = c(0,0.4))+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and LoanStatus')
+
+
+```
+
+
+>The scatter plot above may seem overplotted, hence we can also use ellipse to depict the operation. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Two_2}
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate, color=LoanStatus), data = ld) + 
+  scale_x_continuous(limits = c(200, 900),
+    breaks = seq(200, 900, 100))+
+  scale_y_continuous(limits = c(0,0.4))+
+  stat_ellipse(size=1)+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and LoanStatus')
+
+
+```
+
+
+>There is no discernible pattern between the rate, credit score and loan status. Most of the loans are in current status and they scatter in all combinations of rate and credit score. One thing to notice is that there are very vew loans in past due status for borrowers having credit scores above 600.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Three_1}
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate), 
+       data =subset(ld,ld$EmploymentStatus != "")) + 
+  geom_point(alpha = 0.5, size = 1, position = 'jitter', 
+             aes(color= EmploymentStatus)) +
+  scale_color_brewer(type = 'div',
+    guide = guide_legend(title = 'EmploymentStatus',
+    override.aes = list(alpha = 1, size = 2))) +  
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 100))+
+  scale_y_continuous(limits = c(0,0.4))+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and EmploymentStatus')
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Three_2}
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate, 
+           color = EmploymentStatus), 
+       data =subset(ld,ld$EmploymentStatus != "")) + 
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 100))+
+  scale_y_continuous(limits = c(0,0.4))+
+  stat_ellipse(size=1)+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and EmploymentStatus')
+
+```
+
+
+
+>There are two observations from the chart above:
+1. Employed and Full-time borrowers dominate the employment status
+2. Employed and Full-time borrowers are leaning toward the high end of credit score ranges; however their employment status and credit score don't seem to be correlated with the loan rate.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Four}
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate), data=subset(ld,!is.na(IsBorrowerHomeowner))) + 
+  geom_point(alpha = 0.5, size = 1, 
+             position = 'jitter',color='#CD950C') + facet_wrap(~IsBorrowerHomeowner)+
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 100))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  scale_y_continuous(limits = c(0,0.4))+
+  geom_smooth()+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and Homeowner Status')
+
+
+```
+
+>Both of the plots show similar pattern. However, the chart on the left that is for non-homeowners is skinier than the one for the homeowners. We can see that borrower rate is not really affected by the homeowner status, given the same credit score. However, we can also see that homeowners has wider credit score, with majority are in 650-850 (as opposed to 600-800 of the non homeowners)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Five}
+
+ld$IncomeRange <- 
+  factor(ld$IncomeRange, levels = c("$0","$1-24,999","$25,000-49,999",
+                                    "$50,000-74,999","$75,000-99,999",
+                                    "$100,000+"))
+
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate), data=subset(ld,!is.na(IncomeRange))) + 
+  geom_point(alpha = 0.1, size = 1, 
+             position = 'jitter',color='#EEAD0E') + facet_wrap(~IncomeRange)+
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 100))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  scale_y_continuous(limits = c(0,0.4))+
+  geom_smooth()+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and IncomeRange')
+
+
+```
+
+
+>Regardless the income ranges, all plots look to have similar pattern. Majority of borrowers are in $25,000-49,999 and $50,000-74,999 ranges.Again, we don't see strong correlation between income range and credit score to the borrower rate.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_One}
+ld$ProsperRating..Alpha. <- 
+  factor(ld$ProsperRating..Alpha., 
+         levels = c("AA","A","B","C","D","E","HR"))
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate), data =subset(ld,!is.na(ProsperRating..Alpha.))) + 
+  geom_point(alpha = 0.5, size = 2, 
+             position = 'jitter', 
+             aes(color= ProsperRating..Alpha.)) +
+  scale_color_brewer(type = 'div',
+    guide = guide_legend(title = 'ProsperRating..Alpha.',
+    override.aes = list(alpha = 1, size = 2))) +  
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 50))+
+  scale_y_continuous(limits = c(0,0.4))+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and ProsperRating..Alpha.')
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_OneB}
+
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate), data=subset(ld,!is.na(ProsperRating..numeric.))) + 
+  geom_point(alpha = 0.1, size = 1, 
+             position = 'jitter',color='#CD950C') + facet_wrap(~ProsperRating..numeric.)+
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 100))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  scale_y_continuous(limits = c(0,0.4))+
+  geom_smooth()+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and ProsperRating..numeric.')
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, Corr1}
+
+cor.test(ld$ProsperRating..numeric.,ld$BorrowerRate,method = 'pearson')
+
+linearMod <- lm(ld$BorrowerRate~ld$ProsperRating..numeric.) 
+print(linearMod)
+
+```
+
+
+>Customers with the highest Prosper rating (AA and A or 6 and 7 in numerical scale) have the lowest loan rate. Interestingly, the plot shows that even though the customers' credit score vary, as long as they have the highest rating, they receive the lowest borrowing  In this case Prosper rating is better predictor for borrower rate than the credit score alone.
+The Pearson R test between between numerical rating and borrower rate is -0.95. which is very strong. 
+
+# Multivariate Analysis
+
+### Talk about some of the relationships you observed in this part of the \
+investigation. Were there features that strengthened each other in terms of \
+looking at your feature(s) of interest?
+
+Low loan rate is strongly correlated with the customer's credit rating assigned by Prosper. Credit score alone is not a determining factor for customers in getting the ideal rate.
+
+
+### Were there any interesting or surprising interactions between features?
+
+Income range does not seem to affect the loan rate. Two different customers with same credit score, say 650, and one with $25,000 income whie the other has $100,000, they could get the same loan rate. 
+
+
+
+### OPTIONAL: Did you create any models with your dataset? Discuss the \
+strengths and limitations of your model.
+
+Yes. A linear model is created from ProsperRating..numeric and BorrowerRate variables. The strength of this model is that there is strong correlation between these 2 variables as illustrated by the high R value. On the other side, for new data points, ProsperRating..numeric values may not be assigned immediately as other raw variables, rendering the linear model less effective. 
+
+------
+
+# Final Plots and Summary
+
+
+### Plot One
+```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_One1}
+ld$ProsperRating..Alpha. <- 
+  factor(ld$ProsperRating..Alpha., 
+         levels = c("AA","A","B","C","D","E","HR"))
+ggplot(aes(x = CreditScoreRangeLower, y = BorrowerRate*100), 
+       data =subset(ld,!is.na(ProsperRating..Alpha.))) + 
+  geom_point(alpha = 0.5, size = 1, 
+             position = 'jitter', aes(color= ProsperRating..Alpha.)) +
+  scale_color_brewer(type = 'div',
+    guide = guide_legend(title = 'ProsperRating..Alpha.',
+    override.aes = list(alpha = 1, size = 2))) +  
+  scale_x_continuous(limits = c(350, 900),
+    breaks = seq(350, 900, 50))+
+  scale_y_continuous(limits = c(0,40))+
+  xlab("Credit Score - Lower Range")+
+  ylab("Borrower Rate (%)")+
+  ggtitle('BorrowerRate by CreditScoreRangeLower 
+          and ProsperRating..Alpha.')
+```
+
+### Description One
+>The loan rate is shown as strongly correlated with the alphanumeric ProsperRating variable. AA is the highest rate, and HR is the lowest. What interesting with this plot is it shows that the loan rate for each rating is independent of the credit score and the rate depends almost exclusively on the rating. For example, a borrower with credit core of 700 and rating AA may be assigned loan rate between 6-9%. Borrowers with the same credit score but have A rating may have to accept higher rate between 9-14%.
+
+### Plot Two
+```{r echo=FALSE, message=FALSE, warning=FALSE,"Plot Two_sum"}
+
+ld$LoanStatus <- 
+  factor(ld$LoanStatus,c("Current","FinalPaymentInProgress",
+                         "Past Due (1-15 days)",
+                         "Past Due (16-30 days)",
+                         "Past Due (31-60 days)",
+                         "Past Due (61-90 days)",
+                         "Past Due (91-120 days)",
+                         "Defaulted"))
+
+ggplot(aes(x=LoanStatus,y=CreditScoreRangeLower), 
+       data=subset(ld,ld$LoanStatus != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')+
+  ylim(550,750)+
+  xlab("Loan Status")+
+  ylab("Credit Score - Lower Range")+
+  ggtitle('Credit Score by Loan Status')
+
+```
+
+### Description Two
+>This plot illustrates that defaulted loans are more likely to occur on borrowers with lower credit scores.I choose this plot because it confirms the assumption that borrowers with lower credit scores have higher risks. On the other hand, the past due loans do not differ signficantly to the current ones, perhaps due to the fact that most of past due loans will go back to current once the borrower pay the owned payment and only small amount of past due loans actually become defaulted.
+
+### Plot Three
+```{r echo=FALSE, "Bivariate_Plots EmploymentStatus vs BorrowerRate Sum"}
+ggplot(aes(x=EmploymentStatus,y=BorrowerRate*100), 
+       data=subset(ld,ld$EmploymentStatus != ""))+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_boxplot(color='blue',fill='green')+
+  scale_y_continuous(breaks = seq(0,40,5),limits = c(0, 40))+
+  xlab("Employment Status")+
+  ylab("Borrower Rate (%)")+
+  ggtitle('Borrower Rate by Employment Status')
+
+```
+
+
+### Description Three
+
+>The boxplot above clearly indicates that Not Employed borrowers receive higher loan rate. This is not surprising considering the fact that not employed borrowers have higher risks due to not having regular income. The higher rate is to compensate this higher risk. Other categories having higher borrower rates are Other and Not Available. I suspect these categories are result of Employment Status data are not filled or identified by some borrowers. As employment status is an important consideration when approving the loan, people with unidentified employment status have to settle with higher loan rate.
+
+
+
+------
+
+# Reflection
+
+Prosper loan dataset contains huge amount of variables in which I suspect is a consolidation from various sources of data. Some of the variables though are telling the same thing in slightly different way. Among all variables, I am mainly interested in borrower rate and what are the factors that have impacts on it.
+
+While there is correlation between credit score and employment status to the borrower rate, the strongest ones are shown by the ProsperRating..numeric. and ProsperRating..aplha. variables. However, it is mot likely that Prosper derives ProsperRating from other variables by following certain formula, and then use the rating as the direction to assign certain loan rate to their customers.
+
+Some limitations of this model includes the missing of critical variables such as prime interest rate from the dataset. The prime rate is the underlying index for most credit cards, home equity loans and lines of credit, auto loans, and personal loans and it varies over the time. The information regarding the prime rate will be useful when analyzing the loan rate based on the loan originations time.
