@@ -2,13 +2,13 @@
 This is the repository for my projects for Udacity Data Analysis Nano Degree.
 
 ## Project 0: 
-Getting the first taste of data analytic work by reviewing Bike Ride data
+Getting the first taste of data analytic work by reviewing Bike Ride data. This project introduces me to identifying the key steps of the data analysis process. Python 2.7 is used along with Jupyter notebook.
 
 ## Project 1:
-Analyze data to apply the corect stastitical test to examine the difference between two samples.
+Analyze data to apply the corect stastitical test to examine the difference between two samples. A classic phenomenon from experimental psychology called the Stroop Effect is investigated in this project. A hypothesis is set and tested, and conclusions are drawn based on the results.
 
 ## Project 2:
-Analyze Titanic survival data to uncover correlation and pattern.
+In this project, I analyze Titanic survival data to uncover correlation and pattern. I use the Python libraries NumPy, Pandas, and Matplotlib to make my analysis and to communicate my findings. 
 
 ## Project 3:
 OSM map (xml) data cleaning and processing by using Python. The output are the CSV files which then loaded into SQL database tables. Subsequent analysis is performed with SQL queries to make sense of the data.
