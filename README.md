@@ -1,7 +1,7 @@
 # Udacity Data Analyst Nano Degree
 This is the repository for my projects for Udacity Data Analysis Nano Degree.
 
-## Project 0: 
+## [Project 0: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_0/Bay_Area_Bike_Share_Analysis.ipynb)
 Getting the first taste of data analytic work by reviewing Bike Ride data. This project introduces me to identifying the key steps of the data analysis process. Python 2.7 is used along with Jupyter notebook.
 
 ## Project 1:
