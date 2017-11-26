@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    <style>
+      circle {
+        #fill: orange;
+        #stroke: black;
+        #stroke-width: 0.7;
+        opacity: 0.7;
+      }
+    
+      h2 {
+        text-align: center;
+      }
+        
+/*
+      div.years_buttons {
+        position: fixed;
+        top: 5px;
+        left: 50px;
+      }
+
+      div.years_buttons div {
+        background-color: rgb(251, 201, 127);
+        padding: 3px;
+        margin: 7px;
+      }
+*/
+        
+    </style>
+    <script type="text/javascript">  
+      function draw(data) {
+        "use strict";
+        var margin = 75,
+            width = 1400 - margin,
+            height = 600 - margin;
+        
+    
+        //debugger;  
+        d3.select('body')
+            .append('h2')
+            .text('Baseball Player Data')
+          
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width + margin)
+            .attr("height", height + margin)
+            .append('g')
+            .attr('class', 'chart');
+          
+          
+          
+        
+        var myChart = new dimple.chart(svg, data);
+        myChart.setBounds(75, 30, 700, 400);
+        //myChart.addCategoryAxis("x", "handedness");
+        var x = myChart.addMeasureAxis("x", "height");
+        x.overrideMin = 64;
+        var y = myChart.addMeasureAxis("y", "weight");
+        y.overrideMin = 120;
+        var z = myChart.addMeasureAxis("z", "HR");
+        var s = myChart.addSeries(["weight","name","handedness"], dimple.plot.bubble);
+        //var s = myChart.addSeries(["HR"], dimple.plot.bubble);
+        // Add series for minimum, average and maximum height
+        //var min = myChart.addSeries("Min", dimple.plot.bubble, [x, y1]);
+        //min.aggregate = dimple.aggregateMethod.min;
+        //var avg = myChart.addSeries("Avg", dimple.plot.bubble, [x, y1]);
+        //avg.aggregate = dimple.aggregateMethod.avg;
+        //var max = myChart.addSeries("Max", dimple.plot.bubble, [x, y1]);
+        //max.aggregate = dimple.aggregateMethod.max;  
+        myChart.draw();
+        };  
+        
+
+//        var myChart = new dimple.chart(svg, data);
+//        myChart.setBounds(75, 30, 480, 330)
+//        myChart.addMeasureAxis("x", "Unit Sales");
+//        var y = myChart.addCategoryAxis("y", "Month");
+//        y.addOrderRule("Date");
+//        myChart.addMeasureAxis("z", "Operating Profit");
+//        myChart.addSeries("Channel", dimple.plot.bubble);
+//        myChart.addLegend(180, 10, 360, 20, "right");
+//        myChart.draw();
+        
+      </script>
+  </head>
+<body>
+<!--
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+-->
+    
+  <script type="text/javascript">
+  /*
+    Use D3 to load the GeoJSON file
+    */
+      
+    d3.csv("baseball_data.csv", draw);
+                  
+      
+  </script>
+</body>
+</html>
