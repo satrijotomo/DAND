@@ -120,7 +120,7 @@
         var y = myChart.addMeasureAxis("y", "weight");
         y.overrideMin = 120;
         var z = myChart.addMeasureAxis("z", "HR");
-        var s = myChart.addSeries(["weight","name","handedness"], dimple.plot.bubble);
+        myChart.addSeries(["weight","name","handedness"], dimple.plot.bubble);
         // Add a storyboard to the main chart and set the tick event
         var story = myChart.setStoryboard("handedness", onTick);
         // Change the frame duration
