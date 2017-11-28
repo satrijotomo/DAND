@@ -107,8 +107,10 @@
         s.shapes
             .attr("rx", 10)
             .attr("ry", 10)
-            .style("fill", function (d) { return (d.y === 'B' ? indicatorColor.fill : defaultColor.fill) })
-            .style("stroke", function (d) { return (d.y === 'B' ? indicatorColor.stroke : defaultColor.stroke) })
+            .style("fill", function (d) { return (d.y === 'B' ? 
+              indicatorColor.fill : defaultColor.fill) })
+            .style("stroke", function (d) { return (d.y === 'B' ? 
+              indicatorColor.stroke : defaultColor.stroke) })
             .style("opacity", 0.4);  
           
         // Draw the main chart
@@ -160,8 +162,10 @@
                 s.shapes
                     .transition()
                     .duration(frame / 2)
-                    .style("fill", function (d) { return (d.y === e ? indicatorColor.fill : defaultColor.fill) })
-                    .style("stroke", function (d) { return (d.y === e ? indicatorColor.stroke : defaultColor.stroke) });
+                    .style("fill", function (d) { return (d.y === e ? 
+                      indicatorColor.fill : defaultColor.fill) })
+                    .style("stroke", function (d) { return (d.y === e ? 
+                      indicatorColor.stroke : defaultColor.stroke) });
                 }
             firstTick = false;
           }  
