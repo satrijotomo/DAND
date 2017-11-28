@@ -67,7 +67,6 @@
           
         // Add handedness along the y axis
         var y = indicator.addCategoryAxis("y", "handedness");
-        //y.addOrderRule("handedness", "Desc");
 
         // Use home run for bar size and hide the axis
         var x = indicator.addMeasureAxis("x", "HR");
@@ -132,7 +131,6 @@
         story.addOrderRule(["B","L","R"]);
         myChart.draw();
         
-        //debugger
         // Orphan the legends as they are consistent but by default they
         // will refresh on tick
         myChart.legends = [];  
