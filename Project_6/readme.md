@@ -1,7 +1,7 @@
 
 ### Summary
 
-This interactive and animated visualization shows a number of summary statistics based on the individual baseball players. The graph shows that in total more home runs created by right handed players. It also shows that there is no obvious correlation between players' weight and height and home runs,
+This interactive and animated visualization shows a number of summary statistics based on the individual baseball players. The graph shows that in total more home runs created by right handed players. It also shows that there is no obvious correlation between players' weight and height and home runs. (edit: Change the summary)
 
 ### Design
 
