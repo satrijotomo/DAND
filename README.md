@@ -7,7 +7,7 @@ Getting the first taste of data analytic work by reviewing Bike Ride data. This 
 ## [Project 1: ](http://htmlpreview.github.io/?https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_1/Project%2BStroop.html)
 Analyze data to apply the corect stastitical test to examine the difference between two samples. A classic phenomenon from experimental psychology called the Stroop Effect is investigated in this project. A hypothesis is set and tested, and conclusions are drawn based on the results.
 
-## Project 2:
+## [Project 2: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_2/Titanic%20Survival.ipynb)
 In this project, I analyze Titanic survival data to uncover correlation and pattern. I use the Python libraries NumPy, Pandas, and Matplotlib to make my analysis and to communicate my findings. 
 
 ## Project 3:
