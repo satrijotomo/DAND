@@ -10,7 +10,7 @@ Analyze data to apply the corect stastitical test to examine the difference betw
 ## [Project 2: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_2/Titanic%20Survival.ipynb)
 In this project, I analyze Titanic survival data to uncover correlation and pattern. I use the Python libraries NumPy, Pandas, and Matplotlib to make my analysis and to communicate my findings. 
 
-## Project 3:
+## [Project 3: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_3/P3_OpenstreetMap_BambangSatrijotomo.ipynb)
 OSM map (xml) data cleaning and processing by using Python. The output are the CSV files which then loaded into SQL database tables. Subsequent analysis is performed with SQL queries to make sense of the data.
 
 ## Project 4:
