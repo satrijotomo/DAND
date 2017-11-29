@@ -4,7 +4,7 @@ This is the repository for my projects for Udacity Data Analysis Nano Degree.
 ## [Project 0: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_0/Bay_Area_Bike_Share_Analysis.ipynb)
 Getting the first taste of data analytic work by reviewing Bike Ride data. This project introduces me to identifying the key steps of the data analysis process. Python 2.7 is used along with Jupyter notebook.
 
-## Project 1:
+## [Project 1: ](http://htmlpreview.github.io/?https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_1/Project%2BStroop.html)
 Analyze data to apply the corect stastitical test to examine the difference between two samples. A classic phenomenon from experimental psychology called the Stroop Effect is investigated in this project. A hypothesis is set and tested, and conclusions are drawn based on the results.
 
 ## Project 2:
