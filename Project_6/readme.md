@@ -12,7 +12,7 @@ The animated charts would give readers insights into the correlation between the
 ### Design
 
 The most important decision is what information to present in the chart. First I chose bubble chart (Project6Baseball4.htm and earlier versions), however I found that this type of chart alone was not the best option in communicating my data. I then decided to use bar chart and bubble chart with height as X-axis and two Y-axis: count of players and home run. 
-Then I used handedness as the filter of data for animation. The next decision was to choose between D3 JS or Dimple JS. I chose Dimple JS with storyboard based on its simpler way of building the animated and interactive chart. Furthermore, there are multiple advance Dimplejs examples available in http://dimplejs.org/. 
+Then I used handedness as the filter of data for animation. The next decision was to choose between D3 JS or Dimple JS. I chose Dimple JS with storyboard based on its simpler way of building the animated and interactive chart. Furthermore, there are multiple advance Dimplejs examples available at http://dimplejs.org/. 
 
 I don't consider removing outliers in the data since the dataset is curated one and I believe I need to present all of the in the chart. With that being said, I removed one duplicated row with the same name and other matrics from the dataset and couple of columns as explained in the Fix section.
 
@@ -37,7 +37,7 @@ Feedback received for Project6Baseball4.html:
 Based on feedback for Project6Baseball3.html, I implemented changes for Project6Baseball4.html:
 1. Add parameter for maximum X and Y axis values to avoid bubbles overreach
 2. Change the default and indicator colors of right hand legend. I use default dimple JS colors which are not use in the animation. The choices of colors are limited in dimple JS default color, but now the color distinction between animation and legend are clear.
-3. Lower the legend section on the right side and increase the text a little bit for readibility
+3. Lower the legend section on the right side and increase the text a little bit for readability
 4. Add google font to make the title and legend text more pleasing to the eyes and not standard html font
 5. Add bootstrap navbar to add more aesthetic
 
