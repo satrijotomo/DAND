@@ -59,11 +59,11 @@
         // The frame duration for the animation in milliseconds. 
         // Make sure it is long enough for the transition to complete and
         // readers have time to peek through the data.
-        var frame = 8000;
+        var frame = 10000;
 
         var firstTick = true;  
         
-        indicator.setBounds(800, 70, 150, 150);
+        indicator.setBounds(840, 70, 150, 150);
           
         // Add handedness along the y axis
         var y = indicator.addCategoryAxis("y", "handedness");
@@ -97,10 +97,10 @@
                   "Click again to resume animation"])
             .enter()
             .append("text")
-            .attr("x", 801)
+            .attr("x", 841)
             .attr("y", function (d, i) { return 37 + i * 12; })
             .style("font-family", "Lato")
-            .style("font-size", "11px")
+            .style("font-size", "12px")
             .style("color", "Black")
             .text(function (d) { return d; })  
           
@@ -116,18 +116,25 @@
         // Draw the main chart
         var myChart = new dimple.chart(svg, data);
         myChart.setBounds(75, 30, 700, 400);
-        //myChart.addCategoryAxis("x", "handedness");
         var x = myChart.addCategoryAxis("x", "heightGroup");
-        x.title = "Player Height";
-        x.overrideMin = 64;
-        x.overrideMax = 82;    
-        var y = myChart.addMeasureAxis("y", "count");
-        //y.overrideMin = 120;
-        //y.overrideMax = 240;
-        //var z = myChart.addMeasureAxis("z", "HR");
-        //myChart.addSeries(["weight","name","handedness"], dimple.plot.bubble);
+        x.addOrderRule("heightGroup");
+        x.title = "Players Height Group "
+        var y1 = myChart.addMeasureAxis("y", "HR");
+        y1.title = "Home Run"
+        var y2 = myChart.addMeasureAxis("y", "Count");
+        y2.title = "Players Count"
+
+        myChart.assignColor("count", "#246703", "#000000", 0.3);
+        myChart.addSeries(["count","handedness"], dimple.plot.bar, [x, y2]);
+
+        // Add series for minimum, average and maximum price
+        var min = myChart.addSeries("Min", dimple.plot.bubble, [x, y1]);
+        min.aggregate = dimple.aggregateMethod.min;
+        var avg = myChart.addSeries("Avg", dimple.plot.bubble, [x, y1]);
+        avg.aggregate = dimple.aggregateMethod.avg;
+        var max = myChart.addSeries("Max", dimple.plot.bubble, [x, y1]);
+        max.aggregate = dimple.aggregateMethod.max;
         
-        myChart.addSeries("Count", dimple.plot.bar, [x, y]);
         //myChart.addSeries(["handedness"], dimple.plot.bubble);
         // Add a storyboard to the main chart and set the tick event
         var story = myChart.setStoryboard("handedness", onTick);
@@ -182,7 +189,7 @@
     </script>
     <!-- As a heading -->
     <nav class="navbar navbar-light bg-light" style="background-color: #e3f2fd;">
-        <span class="navbar-brand mb-0 h1">Updated: November 26, 2017</span>
+        <span class="navbar-brand mb-0 h1">Updated: December 02, 2017</span>
     </nav>
 
 </body>
