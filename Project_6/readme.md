@@ -6,15 +6,15 @@ The animated charts would give readers insights into the correlation between the
 
 1. The players height distribution chart shows normal curve pattern as expected, with majority of players' heights are in the range of 72-73 inches. This is the same for all handedness group.
 2. Interestingly, the maximum home run of each height group also follows similar pattern, albeit less consistent. Only in Right handedness group that the highest maximum value falls within 74-75 inches; for the other two handedness groups it falls in 72-73 inches.
-3. Across the handedness groups, the highest home run recorded is 548. This record is of a right-handed player within height range 74-75 inches. However, his performance is an outlier since average HR of his group is only 55.
+3. Across the handedness groups, the highest home run recorded is 548. This record is of a right-handed player within height range 74-75 inches. However, his performance is an outlier since average home run of his group is only 55.
 3. In general, average home run value in each group is not more than 100.
 
 ### Design
 
-The most important decision is what information to present in the chart. First I chose bubble chart (Project6Baseball4.htm), however I found that this type of chart alone was not the best option in communicating my data. I then decided to use bar chart and bubble chart with height as X-axis and two Y-axis: count of players and home run. 
-Then I used handedness as the filter of data for animation. The next decision was to choose between D3 JS or Dimple JS. I chose Dimple JS with storyboard animation based on the ease of building the chart and that there are multiple advance examples available in http://dimplejs.org/. 
+The most important decision is what information to present in the chart. First I chose bubble chart (Project6Baseball4.htm and earlier versions), however I found that this type of chart alone was not the best option in communicating my data. I then decided to use bar chart and bubble chart with height as X-axis and two Y-axis: count of players and home run. 
+Then I used handedness as the filter of data for animation. The next decision was to choose between D3 JS or Dimple JS. I chose Dimple JS with storyboard based on its simpler way of building the animated and interactive chart. Furthermore, there are multiple advance Dimplejs examples available in http://dimplejs.org/. 
 
-I don't consider removing outliers in the data since the dataset is curated one and I believe I need to present all of the in the chart. With that being said, I removed one duplicated row with the same name and other matrics from the dataset.
+I don't consider removing outliers in the data since the dataset is curated one and I believe I need to present all of the in the chart. With that being said, I removed one duplicated row with the same name and other matrics from the dataset and couple of columns as explained in the Fix section.
 
 ### Feedback
 
