@@ -13,7 +13,7 @@ In this project, I analyze Titanic survival data to uncover correlation and patt
 ## [Project 3: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_3/P3_OpenstreetMap_BambangSatrijotomo.ipynb)
 OSM map (xml) data cleaning and processing by using Python. The output are the CSV files which then loaded into SQL database tables. Subsequent analysis is performed with SQL queries to make sense of the data.
 
-## Project 4:
+## [Project 4: ](https://github.com/satrijotomo/Udacity-DAND/blob/master/Project_4/ProsperLoan-BambangSatrijotomo.rmd)
 Exploratory Data Analysis on Prosper Loan dataset using R. Univariat, bivariate and multivariate analysis are performed on the dataset using various R libraries in R Studio.
 
 ## Project 5:
