@@ -23,5 +23,5 @@ Identify Fraud from Enron Email. In 2000, Enron was one of the largest companies
 In this project I created an interactive and animated visualization to show a number of summary statistics based on the individual baseball players. The animated charts would give readers insights into the correlation between the player's height, handedness and home run. I chose Dimple JS with the storyboard to build the visualization based on its efficient way of creating the animated and interactive chart.
 
 
-## Certificate
+## [Nanodegree Certificate](https://github.com/satrijotomo/Udacity-DAND/blob/master/BambangSatrijotomo-DAND.pdf)
 ![alt text](BambangSatrijotomo-DAND.png)
