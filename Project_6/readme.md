@@ -41,7 +41,7 @@ Based on feedback for Project6Baseball3.html, I implemented changes for Project6
 4. Add google font to make the title and legend text more pleasing to the eyes and not standard html font
 5. Add bootstrap navbar to add more aesthetic
 
-Based on feedback for Project6Baseball4.html, I implemented changes for Project6Baseball4.html:
+Based on feedback for Project6Baseball4.html, I implemented changes for Project6Baseball5.html:
 1. Edit the csv data file to add heightGroup and Count columns
 2. Use bar chart for players count and bubble chart for maximum, average and minimum home run values
 3. Adjust position of the legend
