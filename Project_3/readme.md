@@ -5,10 +5,10 @@ This project showcases the data cleanup and processing by using Python and SQL. 
 Subsequent analysis is performed with SQL queries to make sense of the data.
 
 ### Python Libraries Used:
-csv
-codecs
-pprint
-re
-xml.etree.cElementTree
-cerberus
-schema
+1. csv
+2. codecs
+3. pprint
+4. re
+5. xml.etree.cElementTree
+6. cerberus
+7. schema
